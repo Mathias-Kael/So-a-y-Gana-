@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,34 +6,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Soñá y Ganá</title>
 </head>
-<body>
+<body style="font-family: Arial, sans-serif; margin: 40px;">
   <h1>✨ Soñá y Ganá ✨</h1>
   <p>Contanos tu sueño:</p>
-  <textarea id="input" rows="4" cols="50" placeholder="Ej: Soñé con abejas que me picaban mientras hablaba con mi abuela..."></textarea>
-  <br />
-  <button onclick="interpretar()">Ver mis números de la suerte</button>
-  <div id="resultado" style="margin-top: 20px;"></div>
-
+  <textarea id="input" rows="6" cols="70" placeholder="Ej: Soñé con abejas que me picaban mientras hablaba con mi abuela..."></textarea><br><br>
+  <button onclick="interpretar()">Ver interpretación</button>
+  <div id="resultado" style="margin-top: 30px;"></div>
   <script>
-    const diccionario = {
-      "abejas": { numero_loteria: "10891", numero_quiniela: "91", significado: "Cooperación, orden y productividad." },
-      "picar": { numero_loteria: "11667", numero_quiniela: "67", significado: "Relaciones agobiantes o exigentes." },
-      "abuela": { numero_loteria: "01825", numero_quiniela: "25", significado: "Sabiduría ancestral o consuelo emocional." },
-      "dragón": { numero_loteria: "77777", numero_quiniela: "77", significado: "Protección, fuerza sobrenatural, renacimiento." },
-      "pozo": { numero_loteria: "3030", numero_quiniela: "30", significado: "Miedo, depresión o búsqueda interior." },
-      "agua": { numero_loteria: "11111", numero_quiniela: "11", significado: "Emociones, fluidez, limpieza interior." },
-      "lodo": { numero_loteria: "22222", numero_quiniela: "22", significado: "Conflictos internos o dificultades emocionales." }
+    const baseDatos = {
+      "carretera": { numero_loteria: "4450", numero_quiniela: "50", significado: "Tu vida está en tránsito. Puede simbolizar una búsqueda de propósito o dirección. Estar solo en ella puede reflejar introspección o sensación de aislamiento." },
+      "oscuridad": { numero_loteria: "7324", numero_quiniela: "24", significado: "La ausencia de luz representa incertidumbre, confusión o miedo ante lo desconocido." },
+      "bosque": { numero_loteria: "5066", numero_quiniela: "66", significado: "Lugar misterioso y ancestral. Puede ser símbolo de lo inconsciente, lo salvaje o lo inexplorado dentro de ti." },
+      "mono": { numero_loteria: "8807", numero_quiniela: "07", significado: "Aspecto juguetón, primitivo o incontrolado de tu psique. También puede representar pensamientos caóticos o distracciones." },
+      "hablar": { numero_loteria: "1275", numero_quiniela: "75", significado: "La comunicación con lo irracional o reprimido. Estás enfrentando partes tuyas que normalmente ignorás o reprimís." },
+      "piedras": { numero_loteria: "3399", numero_quiniela: "99", significado: "Dificultades, críticas o conflictos. Si te las arrojan, puede ser señal de que te sentís atacado o en juicio por parte de otros o de vos mismo." }
     };
 
+    function normalizar(texto) {
+      return texto.normalize('NFD').replace(/[̀-ͯ]/g, "").toLowerCase();
+    }
+
     function interpretar() {
-      const texto = document.getElementById("input").value.toLowerCase();
+      const textoOriginal = document.getElementById("input").value;
+      const texto = normalizar(textoOriginal);
       const resultado = document.getElementById("resultado");
       resultado.innerHTML = "";
       let coincidencias = [];
 
-      for (const palabra in diccionario) {
+      for (const palabra in baseDatos) {
         if (texto.includes(palabra)) {
-          coincidencias.push({ palabra, ...diccionario[palabra] });
+          coincidencias.push({ palabra, ...baseDatos[palabra] });
         }
       }
 
@@ -56,6 +59,7 @@
       resultado.innerHTML += `<div style="margin-top: 20px; background:#eee; padding:10px">
         <strong>Interpretación final:</strong>
         <p>${resumen}</p>
+        <p><em>“Incluso en la más profunda oscuridad, tu inconsciente está tratando de hablarte. Escuchalo con atención.”</em></p>
       </div>`;
     }
   </script>
