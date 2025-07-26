@@ -17,7 +17,7 @@
 
     async function cargarDiccionario() {
       try {
-        const res = await fetch('diccionario.json');
+        const res = await fetch('public/diccionario.json');
         baseDatos = await res.json();
       } catch (e) {
         document.getElementById("resultado").innerHTML = "<p><strong>Error al cargar el diccionario de sueños.</strong></p>";
